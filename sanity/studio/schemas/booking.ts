@@ -1,4 +1,4 @@
-export default {
+const booking = {
   name: 'booking',
   title: 'Booking',
   type: 'document',
@@ -12,3 +12,5 @@ export default {
     { name: 'status', type: 'string', options: { list: ['pending', 'confirmed', 'cancelled'] }, initialValue: 'pending' }
   ]
 }
+
+export default booking

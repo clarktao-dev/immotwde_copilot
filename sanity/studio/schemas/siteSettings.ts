@@ -1,4 +1,4 @@
-export default {
+const siteSettings = {
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
@@ -8,3 +8,5 @@ export default {
     { name: 'defaultLanguage', type: 'string', options: { list: ['zh-TW', 'de', 'en'] }, initialValue: 'en' }
   ]
 }
+
+export default siteSettings

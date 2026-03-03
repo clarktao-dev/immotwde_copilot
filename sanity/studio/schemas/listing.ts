@@ -1,4 +1,4 @@
-export default {
+const listing = {
   name: 'listing',
   title: 'Listing',
   type: 'document',
@@ -13,3 +13,5 @@ export default {
     { name: 'availableTo', type: 'date', title: 'Available to' }
   ]
 }
+
+export default listing

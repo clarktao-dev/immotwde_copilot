@@ -1,4 +1,4 @@
-export default {
+const newsArticle = {
   name: 'newsArticle',
   title: 'News Article',
   type: 'document',
@@ -9,3 +9,5 @@ export default {
     { name: 'content', type: 'array', of: [{ type: 'block' }] }
   ]
 }
+
+export default newsArticle

@@ -1,4 +1,4 @@
-export default {
+const blogPost = {
   name: 'blogPost',
   title: 'Blog Post',
   type: 'document',
@@ -11,3 +11,5 @@ export default {
     { name: 'content', type: 'array', of: [{ type: 'block' }] }
   ]
 }
+
+export default blogPost

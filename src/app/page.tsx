@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main style={{ padding: '24px', fontFamily: 'system-ui, Arial, sans-serif', color: '#111' }}>

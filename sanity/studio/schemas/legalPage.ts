@@ -1,4 +1,4 @@
-export default {
+const legalPage = {
   name: 'legalPage',
   title: 'Legal Page',
   type: 'document',
@@ -8,3 +8,5 @@ export default {
     { name: 'content', type: 'array', of: [{ type: 'block' }] }
   ]
 }
+
+export default legalPage
