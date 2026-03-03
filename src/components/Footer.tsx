@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer style={{ borderTop: '1px solid #e5e7eb', padding: 24, marginTop: 48 }}>
@@ -5,7 +7,7 @@ export default function Footer() {
         <div>
           <strong>ImmoTWDE</strong>
           <div style={{ marginTop: 8 }}>
-            <a href="/legal/impressum">Impressum</a> · <a href="/legal/datenschutz">Datenschutz</a> · <a href="/legal/agb">AGB</a> · <a href="/legal/widerruf">Widerruf</a>
+            <Link href="/legal/impressum">Impressum</Link> · <Link href="/legal/datenschutz">Datenschutz</Link> · <Link href="/legal/agb">AGB</Link> · <Link href="/legal/widerruf">Widerruf</Link>
           </div>
         </div>
         <div>

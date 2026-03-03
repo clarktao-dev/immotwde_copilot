@@ -12,7 +12,7 @@ export default function ContactPage() {
 
     const form = e.currentTarget
     const formData = new FormData(form)
-    const payload: any = {}
+    const payload: Record<string, unknown> = {}
     formData.forEach((v, k) => (payload[k] = v))
 
     try {
@@ -22,16 +22,16 @@ export default function ContactPage() {
         body: JSON.stringify(payload),
       })
       const data = await res.json()
-      if (res.ok && data.ok) {
+      if (res.ok && (data as any).ok) {
         setStatus('success')
         form.reset()
       } else {
         setStatus('error')
-        setError(data.error || 'Submission failed')
+        setError((data as any).error || 'Submission failed')
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error')
-      setError(err.message || 'Network error')
+      setError(err instanceof Error ? err.message : String(err))
     }
   }
 

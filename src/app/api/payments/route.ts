@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', { apiVersion: '20
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { amount, currency = 'eur', paymentMethod = 'stripe', description = 'Booking', bookingId } = body
+  const { amount, currency = 'eur', paymentMethod = 'stripe', description = 'Booking', bookingId } = body as unknown as { amount: number | string; currency?: string; paymentMethod?: string; description?: string; bookingId?: string }
 
   if (!amount) {
     return NextResponse.json({ ok: false, error: 'missing_amount' }, { status: 400 })
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   try {
     if (paymentMethod === 'stripe') {
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: typeof amount === 'string' ? parseInt(amount, 10) : amount,
+        amount: typeof amount === 'string' ? parseInt(amount, 10) : (amount as number),
         currency,
         description,
         metadata: { bookingId: bookingId || '' },
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         body: 'grant_type=client_credentials',
       })
 
-      const tokenData = await tokenRes.json()
+      const tokenData = await tokenRes.json() as unknown as { access_token?: string }
       if (!tokenData.access_token) {
         return NextResponse.json({ ok: false, error: 'paypal_token_failed', details: tokenData }, { status: 500 })
       }
@@ -62,8 +62,8 @@ export async function POST(req: NextRequest) {
         }),
       })
 
-      const orderData = await orderRes.json()
-      const approveLink = (orderData.links || []).find((l: any) => l.rel === 'approve')
+      const orderData = await orderRes.json() as unknown
+      const approveLink = (orderData as any).links?.find((l: any) => l.rel === 'approve')
       return NextResponse.json({ ok: true, provider: 'paypal', order: orderData, approveUrl: approveLink?.href })
     }
 
@@ -82,8 +82,9 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ ok: false, error: 'invalid_method' }, { status: 400 })
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('payments error', err)
-    return NextResponse.json({ ok: false, error: 'server_error', details: err.message || err }, { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    return NextResponse.json({ ok: false, error: 'server_error', details: message }, { status: 500 })
   }
 }

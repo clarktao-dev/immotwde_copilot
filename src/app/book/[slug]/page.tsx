@@ -11,14 +11,14 @@ export default function BookingForm({ params }: { params: { slug: string } }) {
     setError(null)
     const form = e.target as HTMLFormElement
     const fd = new FormData(form)
-    const payload: any = {}
-    fd.forEach((v,k)=>payload[k]=v)
+    const payload: Record<string, unknown> = {}
+    fd.forEach((v,k)=>payload[k as string]=v)
 
     try{
       const res = await fetch('/api/booking', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) })
       const data = await res.json()
-      if(res.ok && data.ok){ setStatus('success'); form.reset() } else { setStatus('error'); setError(data.error) }
-    }catch(err:any){ setStatus('error'); setError(err.message) }
+      if(res.ok && (data as any).ok){ setStatus('success'); form.reset() } else { setStatus('error'); setError((data as any).error) }
+    }catch(err: unknown){ setStatus('error'); setError(err instanceof Error ? err.message : String(err)) }
   }
 
   return (
