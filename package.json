@@ -11,7 +11,15 @@
     "sanity:install": "cd sanity && npm install",
     "sanity:studio": "cd sanity && sanity start",
     "sanity:deploy": "cd sanity && sanity deploy",
-    "test": "echo \"No tests configured\" && exit 0"
+    "test": "echo \"No tests configured\" && exit 0",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,md}": [
+      "npm run format --if-present",
+      "npm run lint --if-present --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@sanity/client": "^5.4.2",
@@ -34,6 +42,8 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0",
     "prettier": "^3",
     "tailwindcss": "^4",
     "typescript": "^5"
