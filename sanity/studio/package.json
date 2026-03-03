@@ -1,0 +1,14 @@
+{
+  "name": "immotwde-studio",
+  "private": true,
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "install": "npm install"
+  },
+  "dependencies": {
+    "@sanity/cli": "^3",
+    "@sanity/base": "^3"
+  }
+}
