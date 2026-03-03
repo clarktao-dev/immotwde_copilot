@@ -1,4 +1,5 @@
 import MapboxMap from '@/components/MapboxMap'
+import Link from 'next/link'
 
 export default function ListingDetail({ params }: { params: { slug: string } }) {
   const slug = params.slug
@@ -20,18 +21,8 @@ export default function ListingDetail({ params }: { params: { slug: string } }) 
 
       <section style={{ marginTop: 24 }}>
         <h2>Booking</h2>
-        <form action="/api/booking" method="post">
-          <input name="listingId" type="hidden" value="placeholder" />
-          <div style={{ marginTop: 8 }}>
-            <label>Name: <input name="name" /></label>
-          </div>
-          <div style={{ marginTop: 8 }}>
-            <label>Email: <input name="email" /></label>
-          </div>
-          <div style={{ marginTop: 12 }}>
-            <button type="submit">Request Booking</button>
-          </div>
-        </form>
+        <p>To request a booking, use the booking form page:</p>
+        <Link href={`/book/${slug}`}>Open booking form</Link>
       </section>
     </main>
   )

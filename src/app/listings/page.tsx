@@ -16,7 +16,7 @@ export default function Listings() {
             <h2 style={{ margin: 0 }}>{item.title}</h2>
             <div style={{ color: '#6b7280', marginTop: 8 }}>{item.price}</div>
             <div style={{ marginTop: 12 }}>
-              <Link href={`/listings/${item.slug}`}><a>View</a></Link>
+              <Link href={`/listings/${item.slug}`}>View</Link>
             </div>
           </article>
         ))}
