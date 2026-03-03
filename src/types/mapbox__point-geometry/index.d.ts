@@ -1,4 +1,11 @@
 declare module 'mapbox__point-geometry' {
-  const Point: any
+  class Point {
+    constructor(x?: number, y?: number)
+    x: number
+    y: number
+    sub(other: Point): Point
+    add(other: Point): Point
+    eq(other: Point): boolean
+  }
   export default Point
 }
