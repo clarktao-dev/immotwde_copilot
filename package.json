@@ -27,6 +27,7 @@
     "build": "^0.1.4",
     "mapbox-gl": "^3.19.0",
     "next": "16.1.6",
+    "next-sanity": "^12.1.0",
     "node-fetch": "^3.3.2",
     "npm": "^11.11.0",
     "react": "19.2.3",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/mapbox__point-geometry": "^1.0.87",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

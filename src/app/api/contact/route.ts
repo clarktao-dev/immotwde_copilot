@@ -11,8 +11,9 @@ async function verifyRecaptcha(token: string) {
   const res = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`, {
     method: 'POST',
   })
-  const data = await res.json()
-  return data.success
+  type RecaptchaResponse = { success?: boolean }
+  const data = (await res.json()) as RecaptchaResponse
+  return !!data.success
 }
 
 export async function POST(req: NextRequest) {

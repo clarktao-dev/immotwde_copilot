@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef } from 'react'
 
 export default function MapboxMap({ lng = 13.405, lat = 52.52, zoom = 9 }: { lng?: number; lat?: number; zoom?: number }) {

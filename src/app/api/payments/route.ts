@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import fetch from 'node-fetch'
 
+type PayPalOrder = {
+  links?: Array<{ rel: string; href?: string }>
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', { apiVersion: '2022-11-15' })
 
 export async function POST(req: NextRequest) {
@@ -62,8 +66,9 @@ export async function POST(req: NextRequest) {
         }),
       })
 
-      const orderData = await orderRes.json() as unknown
-      const approveLink = (orderData as any).links?.find((l: any) => l.rel === 'approve')
+      const orderData = (await orderRes.json()) as unknown
+      const orderTyped = orderData as PayPalOrder
+      const approveLink = orderTyped.links?.find((l) => l.rel === 'approve')
       return NextResponse.json({ ok: true, provider: 'paypal', order: orderData, approveUrl: approveLink?.href })
     }
 

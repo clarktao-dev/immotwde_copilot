@@ -22,7 +22,12 @@ export async function POST(req: NextRequest) {
       status: 'pending',
     }
 
-    const result = await sanityClient.create(doc)
+    const result =
+      typeof (sanityClient as any)?.create === 'function'
+        ? await (sanityClient as any).create(doc)
+        : (() => {
+            throw new Error('Sanity client not configured')
+          })()
 
     return NextResponse.json({ ok: true, bookingId: result._id })
   } catch (err) {
