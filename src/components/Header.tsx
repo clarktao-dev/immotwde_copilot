@@ -5,10 +5,10 @@ import { usePathname, useRouter } from 'next/navigation'
 
 const supported = ['de', 'en', 'zh-TW']
 
-const navTranslations: Record<string, { title: string; about: string; services: string; blog: string; news: string; contact: string }> = {
-  en: { title: 'ImmoTWDE', about: 'About', services: 'Services', blog: 'Blog', news: 'News', contact: 'Contact' },
-  de: { title: 'ImmoTWDE', about: 'Über uns', services: 'Dienstleistungen', blog: 'Blog', news: 'Neuigkeiten', contact: 'Kontakt' },
-  'zh-TW': { title: 'ImmoTWDE', about: '關於我們', services: '服務項目', blog: '部落格', news: '新聞', contact: '聯絡我們' },
+const navTranslations: Record<string, { title: string; news: string; services: string; about: string; blog: string; contact: string; booking: string }> = {
+  en: { title: 'ImmoTWDE', news: 'News', services: 'Services', about: 'About', blog: 'Blog', contact: 'Contact', booking: 'Booking' },
+  de: { title: 'ImmoTWDE', news: 'Neuigkeiten', services: 'Dienstleistungen', about: 'Über uns', blog: 'Blog', contact: 'Kontakt', booking: 'Buchen' },
+  'zh-TW': { title: 'ImmoTWDE', news: '新聞', services: '服務項目', about: '關於我們', blog: '部落格', contact: '聯絡我們', booking: '預約' },
 }
 
 export default function Header() {
@@ -60,20 +60,23 @@ export default function Header() {
 
         <nav className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3 gap-2">
-            <Link href={makeLocaleLink(currentLocale, '/about')} className="text-sm hover:underline">
-              {t.about}
+            <Link href={makeLocaleLink(currentLocale, '/news')} className="text-sm hover:underline">
+              {t.news}
             </Link>
             <Link href={makeLocaleLink(currentLocale, '/services')} className="text-sm hover:underline">
               {t.services}
             </Link>
+            <Link href={makeLocaleLink(currentLocale, '/about')} className="text-sm hover:underline">
+              {t.about}
+            </Link>
             <Link href={makeLocaleLink(currentLocale, '/blog')} className="text-sm hover:underline">
               {t.blog}
             </Link>
-            <Link href={makeLocaleLink(currentLocale, '/news')} className="text-sm hover:underline">
-              {t.news}
-            </Link>
             <Link href={makeLocaleLink(currentLocale, '/contact')} className="text-sm hover:underline">
               {t.contact}
+            </Link>
+            <Link href={makeLocaleLink(currentLocale, '/booking')} className="text-sm hover:underline font-medium">
+              {t.booking}
             </Link>
           </div>
 
