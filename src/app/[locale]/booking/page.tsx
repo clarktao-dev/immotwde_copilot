@@ -5,12 +5,28 @@ type Props = { params: { locale: string } }
 
 type MeetingType = 'free_30' | 'personal_60' | 'onsite'
 
+interface BookingForm {
+  name?: string
+  email?: string
+  phone?: string
+  personal?: string
+  address?: string
+  message?: string
+  slot?: string
+}
+
 export default function Booking({ params }: Props) {
   const locale = params.locale || 'en'
   const [step, setStep] = useState(1)
   const [meetingType, setMeetingType] = useState<MeetingType | null>(null)
-  const [form, setForm] = useState<any>({})
+  const [form, setForm] = useState<BookingForm>({})
   const [availableSlots, setAvailableSlots] = useState<string[]>([])
+
+  const titles: Record<string, string> = {
+    en: 'Booking',
+    de: 'Buchen',
+    'zh-TW': '預約',
+  }
 
   async function fetchSlots() {
     // Placeholder: integrate Google Calendar availability API or backend endpoint
@@ -34,7 +50,7 @@ export default function Booking({ params }: Props) {
 
   return (
     <main className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold">Booking</h1>
+      <h1 className="text-2xl font-bold">{titles[locale] ?? titles.en}</h1>
 
       <div className="mt-4 max-w-xl">
         {step === 1 && (
@@ -63,14 +79,18 @@ export default function Booking({ params }: Props) {
           <section>
             <h2 className="font-semibold">Your details</h2>
             <div className="mt-2 space-y-2">
-              <input placeholder="Full name" className="w-full border p-2" onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <input placeholder="Email" className="w-full border p-2" onChange={(e) => setForm({ ...form, email: e.target.value })} />
-              <input placeholder="Phone" className="w-full border p-2" onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <input placeholder="Full name" className="w-full border p-2" value={form.name ?? ''} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input placeholder="Email" className="w-full border p-2" value={form.email ?? ''} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input placeholder="Phone" className="w-full border p-2" value={form.phone ?? ''} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
 
-              {meetingType === 'personal_60' && <input placeholder="Personal details" className="w-full border p-2" onChange={(e) => setForm({ ...form, personal: e.target.value })} />}
-              {meetingType === 'onsite' && <input placeholder="Address for on-site" className="w-full border p-2" onChange={(e) => setForm({ ...form, address: e.target.value })} />}
+              {meetingType === 'personal_60' && (
+                <input placeholder="Personal details" className="w-full border p-2" value={form.personal ?? ''} onChange={(e) => setForm({ ...form, personal: e.target.value })} />
+              )}
+              {meetingType === 'onsite' && (
+                <input placeholder="Address for on-site" className="w-full border p-2" value={form.address ?? ''} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+              )}
 
-              <textarea placeholder="What would you like to discuss?" className="w-full border p-2" onChange={(e) => setForm({ ...form, message: e.target.value })} />
+              <textarea placeholder="What would you like to discuss?" className="w-full border p-2" value={form.message ?? ''} onChange={(e) => setForm({ ...form, message: e.target.value })} />
             </div>
 
             <div className="mt-4 flex gap-2">
