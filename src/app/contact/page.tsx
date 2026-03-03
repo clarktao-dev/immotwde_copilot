@@ -21,13 +21,13 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      const data = await res.json()
-      if (res.ok && (data as any).ok) {
+      const data = (await res.json()) as { ok?: boolean; error?: string }
+      if (res.ok && data.ok) {
         setStatus('success')
         form.reset()
       } else {
         setStatus('error')
-        setError((data as any).error || 'Submission failed')
+        setError(data.error || 'Submission failed')
       }
     } catch (err: unknown) {
       setStatus('error')

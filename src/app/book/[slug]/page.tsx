@@ -16,8 +16,8 @@ export default function BookingForm({ params }: { params: { slug: string } }) {
 
     try{
       const res = await fetch('/api/booking', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) })
-      const data = await res.json()
-      if(res.ok && (data as any).ok){ setStatus('success'); form.reset() } else { setStatus('error'); setError((data as any).error) }
+      const data = (await res.json()) as { ok?: boolean; error?: string }
+      if(res.ok && data.ok){ setStatus('success'); form.reset() } else { setStatus('error'); setError(data.error ?? 'Unknown error') }
     }catch(err: unknown){ setStatus('error'); setError(err instanceof Error ? err.message : String(err)) }
   }
 
