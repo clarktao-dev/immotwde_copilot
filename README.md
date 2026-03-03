@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# immotwde
 
-## Getting Started
+ImmoTWDE — Next.js + TypeScript + Tailwind starter for a bilingual (zh-TW/de/en) real estate site with Sanity CMS, booking, and contact functionality.
 
-First, run the development server:
+## Quick start
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Install dependencies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Create a `.env.local` with required environment variables (see ENV section)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Run Next dev server
 
-## Learn More
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+## Sanity Studio
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- The project includes a `sanity/` directory with a Sanity Studio scaffold. From the `sanity` directory run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  ```bash
+  npm install
+  npm run start
+  ```
 
-## Deploy on Vercel
+## ENV variables (examples)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `NEXT_PUBLIC_MAPBOX_TOKEN=pk.xxx`
+- `SANITY_PROJECT_ID=your_project_id`
+- `SANITY_DATASET=production`
+- `SANITY_API_TOKEN=secret`
+- `STRIPE_SECRET_KEY=sk_test_xxx`
+- `SENDGRID_API_KEY=SG.xxx`
+- `RECAPTCHA_SECRET=xxx`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+- Recommended: Vercel. Create a project on Vercel and connect the repository. Add required ENV variables in Vercel settings.
+- CI: GitHub Actions included in `.github/workflows/ci.yml` which runs lint and build on push.
+
+## Legal pages
+
+This repo includes placeholder templates for German legal pages (Impressum, Datenschutzerklärung, AGB, Widerrufsrecht) — update with your legal counsel.
+
+## Contributing
+
+- ESLint + Prettier configured. Please follow formatting rules before committing.
