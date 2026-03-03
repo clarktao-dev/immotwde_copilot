@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Enforce readable commit messages: non-empty subject, subject length >= 10 and <= 72
+MSG_FILE="$1"
+if [ -z "$MSG_FILE" ]; then
+  echo "No commit message file provided"
+  exit 1
+fi
+SUBJECT=$(head -n1 "$MSG_FILE" | sed -e 's/[[:space:]]*$//')
+SUBJECT_LEN=${#SUBJECT}
+
+if [ -z "$SUBJECT" ]; then
+  echo "Aborting commit: commit subject is empty. Please provide a short, readable subject." >&2
+  exit 1
+fi
+if [ "$SUBJECT_LEN" -lt 10 ]; then
+  echo "Aborting commit: subject too short (${SUBJECT_LEN} chars). Please use at least 10 characters describing the change." >&2
+  exit 1
+fi
+if [ "$SUBJECT_LEN" -gt 72 ]; then
+  echo "Aborting commit: subject too long (${SUBJECT_LEN} chars). Keep subject <= 72 characters." >&2
+  exit 1
+fi
+# Optionally encourage Conventional Commits
+if ! echo "$SUBJECT" | grep -qE '^(feat|fix|chore|docs|refactor|style|test|perf)(\(|: )'; then
+  echo "Warning: commit subject does not use a conventional prefix (feat|fix|chore|docs|refactor|style|test|perf). Consider using one for clarity." >&2
+fi
+exit 0
