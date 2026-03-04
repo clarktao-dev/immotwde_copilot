@@ -9,7 +9,6 @@ export default function Booking({ params }: Props) {
   const [step, setStep] = useState<number>(1)
   const [answers, setAnswers] = useState<Record<string, boolean>>({})
   const [form, setForm] = useState({ name: '', email: '', phone: '' })
-  const [completed, setCompleted] = useState(false)
 
   const titles: Record<string, string> = {
     en: 'Booking',
@@ -144,7 +143,7 @@ export default function Booking({ params }: Props) {
 
             <div className="mt-4 flex gap-2">
               <button className="px-4 py-2 border" onClick={() => setStep(2)}>{locale === 'de' ? 'Zurück' : locale === 'zh-TW' ? '返回' : 'Back'}</button>
-              <button className="px-4 py-2 bg-green-600 text-white" onClick={() => { setStep(4); setCompleted(true) }}>
+              <button className="mt-4 px-4 py-2 bg-green-600 text-white" onClick={() => { setStep(4) /* user confirmed booking */ }}>
                 {locale === 'de' ? 'Ich habe gebucht' : locale === 'zh-TW' ? '我已預約' : "I've booked"}
               </button>
             </div>
@@ -159,7 +158,7 @@ export default function Booking({ params }: Props) {
             </p>
 
             <div className="mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white" onClick={() => { setStep(1); setAnswers({}); setForm({ name: '', email: '', phone: '' }); setCompleted(false) }}>
+              <button className="px-4 py-2 bg-blue-600 text-white" onClick={() => { setStep(1); setAnswers({}); setForm({ name: '', email: '', phone: '' }); }}>
                 {locale === 'de' ? 'Neue Buchung' : locale === 'zh-TW' ? '重新預約' : 'Make another booking'}
               </button>
             </div>
