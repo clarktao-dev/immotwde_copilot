@@ -1,7 +1,6 @@
-import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-export async function POST(_req: NextRequest) {
+export async function POST() {
   return NextResponse.json({ ok: false, error: 'moved_to_calcom' }, { status: 410 })
 }
 

@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       let b: Buffer
       try {
         b = Buffer.from(receivedSig, 'hex')
-      } catch (e) {
+      } catch {
         // received signature is not hex; fall back to utf8 compare
         b = Buffer.from(receivedSig, 'utf8')
       }
@@ -61,8 +61,9 @@ export async function POST(req: NextRequest) {
 
     // Append to Google Sheet
     const auth = new google.auth.GoogleAuth({ scopes: ['https://www.googleapis.com/auth/spreadsheets'] })
-    const client = (await auth.getClient()) as any
-    const sheets = google.sheets({ version: 'v4', auth: client })
+    // ensure ADC client is available, then pass the GoogleAuth instance to the sheets client
+    await auth.getClient()
+    const sheets = google.sheets({ version: 'v4', auth })
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID || '',

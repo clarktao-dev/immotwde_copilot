@@ -24,9 +24,9 @@ export default function Booking({ params }: Props) {
 
   // full public URLs used for fallback/open-in-new-tab (recommended)
   const calFullUrl: Record<string, string> = {
-    en: 'https://cal.com/immotwde/15min',
-    de: 'https://cal.com/immotwde/15min',
-    'zh-TW': 'https://cal.com/immotwde/15min',
+    en: 'https://cal.eu/immotwde/15min',
+    de: 'https://cal.eu/immotwde/15min',
+    'zh-TW': 'https://cal.eu/immotwde/15min',
   }
 
   useEffect(() => {
