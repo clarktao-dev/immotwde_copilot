@@ -36,7 +36,6 @@
     "stripe": "^12.18.0",
     "googleapis": "^121.0.0",
     "@calcom/embed-react": "^1.0.0",
-    "@notionhq/client": "^3.7.0",
     "notion-to-md": "^3.0.0",
     "react-markdown": "^8.0.0",
     "remark-gfm": "^3.0.0"
