@@ -15,10 +15,18 @@ export default function Booking({ params }: Props) {
 
   // Configure these values for your Cal.com setup
   const namespace = '15min' // change if your Cal.com namespace is different
-  const calcomLinks: Record<string, string> = {
+  // calLinkPath is the value the <Cal /> component expects (username/event)
+  const calLinkPath: Record<string, string> = {
     en: 'immotwde/15min',
     de: 'immotwde/15min',
     'zh-TW': 'immotwde/15min',
+  }
+
+  // full public URLs used for fallback/open-in-new-tab (recommended)
+  const calFullUrl: Record<string, string> = {
+    en: 'https://cal.com/immotwde/15min',
+    de: 'https://cal.com/immotwde/15min',
+    'zh-TW': 'https://cal.com/immotwde/15min',
   }
 
   useEffect(() => {
@@ -34,8 +42,9 @@ export default function Booking({ params }: Props) {
     })()
   }, [locale])
 
-  // include locale as a query param on the calLink so the widget receives it without violating types
-  const calLinkWithLocale = `${calcomLinks[locale] ?? calcomLinks.en}?locale=${encodeURIComponent(locale)}`
+  // Prepare values
+  const calLinkForEmbed = calLinkPath[locale] ?? calLinkPath.en
+  const calFullUrlWithLocale = `${calFullUrl[locale] ?? calFullUrl.en}?locale=${encodeURIComponent(locale)}`
 
   return (
     <main className="container mx-auto p-6">
@@ -50,10 +59,17 @@ export default function Booking({ params }: Props) {
         <div className="border p-4 rounded" style={{ minHeight: 600 }}>
           <Cal
             namespace={namespace}
-            calLink={calLinkWithLocale}
+            // calLink expects the "username/event" path (without protocol) per the embed API
+            calLink={calLinkForEmbed}
             style={{ width: '100%', height: '100%', minHeight: 600, border: 0 }}
             config={{ layout: 'month_view', useSlotsViewOnSmallScreen: 'true' }}
           />
+
+          {/* Fallback: open full Cal.com page (useful on localhost or if embed 404s) */}
+          <div className="mt-4 text-sm">
+            <p>If the embedded scheduler returns an error, open the booking page directly:</p>
+            <a className="text-blue-600" href={calFullUrlWithLocale} target="_blank" rel="noreferrer">Open booking page on Cal.com</a>
+          </div>
         </div>
       </div>
     </main>
